@@ -1,5 +1,5 @@
-const VERSION = 'gith-world-v1';
-const SHELL = ['/', '/styles.css', '/game.js', '/manifest.json', '/characters.json', '/locations.json', '/icons/app.svg'];
+const VERSION = 'gith-world-v2';
+const SHELL = ['/', '/styles.css?v=2', '/game.js?v=2', '/manifest.json', '/characters.json', '/locations.json', '/icons/app.svg'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(VERSION).then(cache => cache.addAll(SHELL)).then(() => self.skipWaiting()));
 });

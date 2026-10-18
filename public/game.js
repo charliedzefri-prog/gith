@@ -4,12 +4,14 @@
   const canvas = $('#worldCanvas');
   const ctx = canvas.getContext('2d');
   const modalRoot = $('#modalRoot');
+  const speechLayer = $('#speechLayer') || canvas.insertAdjacentElement('afterend', Object.assign(document.createElement('div'), { id: 'speechLayer', className: 'speech-layer' }));
+  speechLayer.setAttribute('aria-hidden', 'true');
   const state = {
     characters: [], locations: [], players: [], online: 0, mapId: 'map-006', map: null,
     currentId: null, name: 'Гость', characterId: 'madley', socket: null, reconnectTimer: null,
     profile: loadProfile(), started: false, soundOn: true, audio: null, musicTimer: null, musicStep: 0,
     keys: new Set(), input: { x: 0, y: 0 }, lastMoveSent: 0, chatCollapsed: false,
-    incoming: null, duel: null, dodge: null, chatCounts: {}, recentChats: [],
+    incoming: null, duel: null, dodge: null, chatCounts: {}, recentChats: [], speechBubbles: new Map(),
     heart: { x: .5, y: .72 }, dodgeHits: new Set(), dodgeScoreSent: false,
     lastFrame: performance.now(), lastProfileSave: 0, mobilePointer: null
   };
@@ -87,7 +89,7 @@
     if (localStorage.getItem('githStarted') === 'yes') {
       state.started = true; joinWorld();
     } else { $('#connectionBadge').classList.add('hidden'); showStartScreen(); }
-    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('/sw.js').catch(() => {});
+    if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch(() => {});
   }
 
   function updateTopBar() {
@@ -117,7 +119,7 @@
     });
     ws.addEventListener('message', ev => { let m; try { m = JSON.parse(ev.data); } catch { return; } handleMessage(m); });
     ws.addEventListener('close', () => {
-      state.currentId = null;
+      state.currentId = null; clearSpeechBubbles();
       if (state.started) { setConnection('disconnected', 'Связь потеряна · переподключаемся'); clearTimeout(state.reconnectTimer); state.reconnectTimer = setTimeout(connect, 1800); }
     });
     ws.addEventListener('error', () => setConnection('disconnected', 'Нет соединения с сервером'));
@@ -155,11 +157,64 @@
     $('#chatMessages').scrollTop = $('#chatMessages').scrollHeight;
     if (m.playerId === state.currentId) { state.profile.messages++; saveProfile(); }
     state.recentChats.push(m); if (state.recentChats.length > 80) state.recentChats.shift();
+    showSpeechBubble(m);
   }
   function clearChat() {
-    $('#chatMessages').replaceChildren(); state.recentChats = [];
+    $('#chatMessages').replaceChildren(); state.recentChats = []; clearSpeechBubbles();
     const note = document.createElement('div'); note.className = 'system-message'; note.textContent = `Ты прибыл в «${state.map?.name || ''}». Поздоровайся с местными!`;
     $('#chatMessages').append(note);
+  }
+  function showSpeechBubble(message) {
+    const text = String(message.text || '').trim().slice(0, 180);
+    if (!text || !state.players.some(p => p.id === message.playerId)) return;
+    const previous = state.speechBubbles.get(message.playerId);
+    if (previous) previous.el.remove();
+    const el = document.createElement('div');
+    el.className = 'speech-bubble' + (message.playerId === state.currentId ? ' mine' : '');
+    el.dataset.playerId = message.playerId;
+    el.textContent = text; // Messages are plain text, never player-supplied HTML.
+    speechLayer.append(el);
+    const now = performance.now();
+    state.speechBubbles.set(message.playerId, {
+      el, mapId: state.mapId, expiresAt: now + Math.max(4500, Math.min(12000, 2800 + Array.from(text).length * 45))
+    });
+  }
+  function clearSpeechBubbles() {
+    speechLayer.replaceChildren(); state.speechBubbles.clear();
+  }
+  function updateSpeechBubbles(w, h, now) {
+    if (!state.speechBubbles.size) return;
+    const players = new Map(state.players.map(p => [p.id, p]));
+    const active = [];
+    for (const [id, bubble] of state.speechBubbles) {
+      if (now >= bubble.expiresAt || bubble.mapId !== state.mapId || !players.has(id)) {
+        bubble.el.remove(); state.speechBubbles.delete(id); continue;
+      }
+      active.push({ id, bubble, anchor: playerLayout(players.get(id), w, h, now), width: bubble.el.offsetWidth, height: bubble.el.offsetHeight });
+    }
+    // Keep your own message closest to its speaker; nearby messages stack rather than overlap.
+    active.sort((a, b) => Number(b.id === state.currentId) - Number(a.id === state.currentId) || a.anchor.baseY - b.anchor.baseY);
+    const placed = [], gap = 10;
+    for (const { bubble, anchor, width, height } of active) {
+      const left = Math.max(12, Math.min(w - width - 12, anchor.x - width / 2));
+      const maxY = Math.max(12, h - 78 - height), minY = Math.min(w <= 680 ? 78 : 98, maxY);
+      const clampY = y => Math.max(minY, Math.min(maxY, y));
+      const above = anchor.nameY - height - 12, below = anchor.baseY + 22 * anchor.scale;
+      const preferred = above >= minY ? above : below;
+      const candidates = [clampY(preferred), clampY(below), ...placed.flatMap(r => [clampY(r.y - height - gap), clampY(r.y + r.height + gap)])];
+      const overlaps = y => placed.reduce((area, r) => {
+        const dx = Math.max(0, Math.min(left + width + gap, r.x + r.width) - Math.max(left - gap, r.x));
+        const dy = Math.max(0, Math.min(y + height + gap, r.y + r.height) - Math.max(y - gap, r.y));
+        return area + dx * dy;
+      }, 0);
+      candidates.sort((a, b) => overlaps(a) - overlaps(b) || Math.abs(a - preferred) - Math.abs(b - preferred));
+      const top = candidates[0];
+      placed.push({ x: left, y: top, width, height });
+      bubble.el.style.transform = `translate3d(${left.toFixed(1)}px,${top.toFixed(1)}px,0)`;
+      bubble.el.style.setProperty('--tail-x', `${Math.max(17, Math.min(width - 17, anchor.x - left))}px`);
+      bubble.el.classList.toggle('below', top > anchor.nameY);
+      bubble.el.classList.toggle('is-leaving', bubble.expiresAt - now < 450);
+    }
   }
   function renderPlayers() {
     const list = $('#playersList'); if (!list) return;
@@ -397,22 +452,29 @@
     }
     const list = [...state.players].sort((a,b) => (a.y||0)-(b.y||0));
     for (const p of list) drawPlayer(p, w, h, now);
+    updateSpeechBubbles(w, h, now);
+  }
+  function playerLayout(p, w, h, now) {
+    const x = (p.x ?? .5) * w, baseY = (p.y ?? .6) * h;
+    const self = p.id === state.currentId, moving = p.moving || (self && (state.input.x || state.input.y));
+    const bob = Math.sin(now * .006 + (p.id.charCodeAt(0) || 1)) * (moving ? 3.5 : 1.6);
+    const scale = Math.max(.76, Math.min(1.18, Math.min(w / 1100, h / 700)));
+    // About 1.65x the previous sprite size, with the same feet/world coordinates.
+    const sw = 102 * scale, sh = 116 * scale, sy = baseY - sh + bob;
+    return { x, baseY, scale, sw, sh, sy, nameY: sy - 25 * scale };
   }
   function drawPlayer(p,w,h,now) {
     const char = getChar(p.characterId); if (!char) return;
-    const x = (p.x ?? .5)*w, baseY = (p.y ?? .6)*h;
-    const self = p.id === state.currentId, moving = p.moving || (self && (state.input.x || state.input.y));
-    const bob = Math.sin(now*.006 + (p.id.charCodeAt(0)||1))* (moving?3.5:1.6);
-    const scale = Math.max(.76,Math.min(1.18,Math.min(w/1100,h/700)));
-    const sw = 62*scale, sh = 70*scale, sy = baseY-sh+bob;
-    ctx.save(); ctx.globalAlpha=.25; ctx.fillStyle='#000'; ctx.beginPath(); ctx.ellipse(x,baseY+2,22*scale,6*scale,0,0,Math.PI*2); ctx.fill(); ctx.restore();
-    if(self){ctx.strokeStyle='#d3ff83aa';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(x,baseY+1,28*scale,8*scale,0,0,Math.PI*2);ctx.stroke();}
+    const { x, baseY, scale, sw, sh, sy, nameY } = playerLayout(p, w, h, now);
+    const self = p.id === state.currentId;
+    ctx.save(); ctx.globalAlpha=.25; ctx.fillStyle='#000'; ctx.beginPath(); ctx.ellipse(x,baseY+2,32*scale,8*scale,0,0,Math.PI*2); ctx.fill(); ctx.restore();
+    if(self){ctx.strokeStyle='#d3ff83aa';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(x,baseY+1,40*scale,10*scale,0,0,Math.PI*2);ctx.stroke();}
     let im=images.get(`char:${char.id}`);
     if(!im){im=new Image();im.src=char.image;images.set(`char:${char.id}`,im);}
     if(im.complete&&im.naturalWidth){ctx.save();ctx.shadowColor=self?'#b8f06b66':'#00000033';ctx.shadowBlur=self?14:7;ctx.drawImage(im,x-sw/2,sy,sw,sh);ctx.restore();}
     else {ctx.fillStyle=self?'#cbff6c':'#ab8cff';ctx.beginPath();ctx.arc(x,sy+sh*.45,16*scale,0,Math.PI*2);ctx.fill();}
     const name = p.name || 'Странник'; ctx.font=`700 ${Math.max(10,11*scale)}px system-ui`; const tw=ctx.measureText(name).width;
-    const bw=Math.min(Math.max(50,tw+18),180), bh=20*scale, bx=x-bw/2, by=sy-23*scale;
+    const bw=Math.min(Math.max(50,tw+18),180), bh=20*scale, bx=x-bw/2, by=nameY;
     roundedRect(ctx,bx,by,bw,bh,7*scale); ctx.fillStyle=self?'rgba(20,28,20,.84)':'rgba(12,15,23,.76)';ctx.fill();
     if(self){ctx.strokeStyle='#d2ff6b9a';ctx.lineWidth=1;roundedRect(ctx,bx,by,bw,bh,7*scale);ctx.stroke();}
     ctx.fillStyle='#fff';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(name,x,by+bh/2, bw-8);
@@ -520,7 +582,10 @@
     $('#declineChallengeButton').addEventListener('click',()=>{if(state.incoming)send('declineChallenge',{challengeId:state.incoming.challengeId});state.incoming=null;$('#incomingChallenge').classList.add('hidden');});
     canvas.addEventListener('click',e=>{
       const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
-      for(const p of [...state.players].reverse())if(p.id!==state.currentId){const px=p.x*innerWidth,py=p.y*innerHeight;if(Math.hypot(x-px,y-(py-30))<52){challenge(p.id);return;}}
+      for (const p of [...state.players].sort((a,b) => b.y - a.y)) if (p.id !== state.currentId) {
+        const { x: px, baseY, sw, sy } = playerLayout(p, innerWidth, innerHeight, performance.now());
+        if (x >= px - sw / 2 - 8 && x <= px + sw / 2 + 8 && y >= sy - 6 && y <= baseY + 12) { challenge(p.id); return; }
+      }
     });
     setupTouch();
     $('#dodgeCanvas').addEventListener('pointermove',e=>{

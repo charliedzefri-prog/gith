@@ -7,12 +7,13 @@
   <meta name="description" content="Gith World — 2D RP-мир с мультиплеером, персонажами, ачивками и дуэлями bullet-hell.">
   <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/icons/app.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=2">
   <title>Gith World RP</title>
 </head>
 <body>
   <main id="gameShell" aria-label="Gith World RP">
     <canvas id="worldCanvas" aria-label="Игровой мир"></canvas>
+    <div id="speechLayer" class="speech-layer" aria-hidden="true"></div>
     <div class="world-vignette"></div>
     <div id="toastStack" class="toast-stack" aria-live="polite"></div>
 
@@ -67,6 +68,6 @@
     <div id="modalRoot"></div>
     <div id="connectionBadge" class="connection-badge"><i></i><span>Подключение…</span></div>
   </main>
-  <script src="/game.js" defer></script>
+  <script src="/game.js?v=2" defer></script>
 </body>
 </html>

@@ -14,7 +14,15 @@ const characterById = new Map(characters.map(c => [c.id, c]));
 const locationById = new Map(locations.map(l => [l.id, l]));
 const app = express();
 app.disable('x-powered-by');
-app.use(express.static(PUBLIC, { maxAge: process.env.NODE_ENV === 'production' ? '1h' : 0, etag: true }));
+const shellFiles = new Set(['index.html', 'game.js', 'styles.css', 'sw.js', 'manifest.json', 'characters.json', 'locations.json']);
+app.use(express.static(PUBLIC, {
+  maxAge: process.env.NODE_ENV === 'production' ? '1h' : 0,
+  etag: true,
+  setHeaders(res, file) {
+    // Revalidate the application shell so existing players receive game updates.
+    if (shellFiles.has(path.basename(file))) res.setHeader('Cache-Control', 'no-cache');
+  }
+}));
 app.get('/health', (_req, res) => res.json({ ok: true, players: players.size, duels: duels.size }));
 app.get('*', (_req, res) => res.sendFile(path.join(PUBLIC, 'index.html')));
 const server = http.createServer(app);
