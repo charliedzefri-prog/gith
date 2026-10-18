@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#111521">
+  <meta name="description" content="Gith World — 2D RP-мир с мультиплеером, персонажами, ачивками и дуэлями bullet-hell.">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icons/app.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <title>Gith World RP</title>
+</head>
+<body>
+  <main id="gameShell" aria-label="Gith World RP">
+    <canvas id="worldCanvas" aria-label="Игровой мир"></canvas>
+    <div class="world-vignette"></div>
+    <div id="toastStack" class="toast-stack" aria-live="polite"></div>
+
+    <header class="topbar glass">
+      <div class="brand"><span class="brand-mark">G</span><div><b>GITH WORLD</b><small>2D ROLEPLAY</small></div></div>
+      <button class="location-chip" id="locationButton" title="Выбрать локацию"><span class="pin">✦</span><span id="locationName">Загрузка мира…</span><span class="chevron">⌄</span></button>
+      <div class="top-actions">
+        <span class="online-pill"><i class="online-dot"></i><b id="onlineCount">0</b><span>в мире</span></span>
+        <button class="icon-btn sound-btn" id="soundButton" title="Музыка: вкл"><span id="soundIcon">♫</span></button>
+        <button class="icon-btn" id="fullscreenButton" title="Полный экран">⛶</button>
+        <button class="avatar-chip" id="characterButton" title="Персонажи"><img id="myAvatar" src="/assets/characters/madley.png" alt=""><span><b id="myName">Гость</b><small id="myCharacter">Мэдли Кэррот</small></span><span class="chevron">⌄</span></button>
+      </div>
+    </header>
+
+    <aside class="side-panel players-panel glass">
+      <div class="panel-heading"><div><small class="eyebrow">ОБИТАТЕЛИ</small><h2>Рядом <span id="nearCount">0</span></h2></div><span class="pulse-dot"></span></div>
+      <div id="playersList" class="players-list"><div class="empty-note">Пока тихо…</div></div>
+      <div class="panel-foot"><span class="keycap">W</span><span class="keycap">A</span><span class="keycap">S</span><span class="keycap">D</span><span>перемещение</span></div>
+    </aside>
+
+    <section class="chat-panel glass" id="chatPanel">
+      <div class="chat-head"><div><small class="eyebrow">МИР · <span id="chatLocation">—</span></small><b>Чат локации</b></div><button class="tiny-btn" id="chatMinButton" aria-label="Свернуть чат">⌄</button></div>
+      <div id="chatMessages" class="chat-messages"><div class="system-message">Добро пожаловать! Напиши первое сообщение 👋</div></div>
+      <form id="chatForm" class="chat-form"><input id="chatInput" maxlength="180" autocomplete="off" placeholder="Сказать что-нибудь…"><button type="submit" aria-label="Отправить">↑</button></form>
+    </section>
+
+    <div class="bottom-controls">
+      <button class="action-pill" id="mapShortcut"><span>⌖</span> Мир <kbd>M</kbd></button>
+      <button class="action-pill" id="characterShortcut"><span>✧</span> Персонажи <kbd>C</kbd></button>
+      <button class="action-pill" id="achievementShortcut"><span>◇</span> Ачивки <kbd>J</kbd></button>
+      <button class="action-pill duel-shortcut" id="duelShortcut"><span>⚔</span> Дуэль <kbd>F</kbd></button>
+    </div>
+
+    <div class="touch-pad" id="touchPad" aria-label="Виртуальное управление"><div class="touch-ring"><div class="touch-knob" id="touchKnob"></div></div></div>
+    <button id="touchChatButton" class="touch-chat-button">☰</button>
+
+    <section id="battlePanel" class="battle-panel glass hidden" aria-live="polite">
+      <div class="battle-header"><div><small class="eyebrow">ДУЭЛЬ · РАУНД <span id="roundNumber">1</span></small><h2 id="battleTitle">Бой!</h2></div><button class="tiny-btn" id="leaveDuelButton" title="Сдаться">×</button></div>
+      <div class="combatants">
+        <div class="combatant"><img id="duelAvatarA" src="/assets/characters/madley.png" alt=""><div class="hp-track"><span id="hpBarA"></span></div><small id="duelNameA">Игрок</small></div>
+        <span class="vs-mark">VS</span>
+        <div class="combatant"><img id="duelAvatarB" src="/assets/characters/rouge.png" alt=""><div class="hp-track"><span id="hpBarB"></span></div><small id="duelNameB">Игрок</small></div>
+      </div>
+      <p id="battleHint" class="battle-hint">Выбирай атаку, когда наступит твоя очередь.</p>
+      <div class="arena-frame"><canvas id="dodgeCanvas" width="640" height="300"></canvas><div id="heartGlyph" class="heart-glyph">♥</div><div class="arena-caption" id="arenaCaption">АРЕНА</div></div>
+      <div id="attackActions" class="attack-actions"><button class="attack-button" id="attackButton"><span>✦</span><b id="attackLabel">Атака</b><small>уникальная способность</small></button><span class="battle-controls">Уклоняйся: WASD / стрелки</span></div>
+      <div class="battle-timer"><span id="timerFill"></span></div>
+    </section>
+
+    <div id="incomingChallenge" class="challenge-toast glass hidden"><div class="challenge-avatar"><img id="challengeAvatar" src="/assets/characters/madley.png" alt=""></div><div class="challenge-copy"><b id="challengeText">Вызов на дуэль</b><small>Принять бой?</small></div><button id="acceptChallengeButton" class="accept-btn">Принять</button><button id="declineChallengeButton" class="decline-btn">×</button></div>
+
+    <div id="modalRoot"></div>
+    <div id="connectionBadge" class="connection-badge"><i></i><span>Подключение…</span></div>
+  </main>
+  <script src="/game.js" defer></script>
+</body>
+</html>

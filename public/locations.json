@@ -1,0 +1,572 @@
+[
+  {
+    "id": "map-001",
+    "name": "Ад ледяной широкий",
+    "image": "/assets/backgrounds/map-001.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-002",
+    "name": "Ад ледяной",
+    "image": "/assets/backgrounds/map-002.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-003",
+    "name": "Ад",
+    "image": "/assets/backgrounds/map-003.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-004",
+    "name": "бар",
+    "image": "/assets/backgrounds/map-004.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-005",
+    "name": "Город зимой ночь",
+    "image": "/assets/backgrounds/map-005.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-006",
+    "name": "Город зимой",
+    "image": "/assets/backgrounds/map-006.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-007",
+    "name": "Город Электростанция",
+    "image": "/assets/backgrounds/map-007.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-008",
+    "name": "дверь к лаборатории",
+    "image": "/assets/backgrounds/map-008.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-009",
+    "name": "Джаркхннатрас коридор",
+    "image": "/assets/backgrounds/map-009.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-010",
+    "name": "Джархннатрас снаружи",
+    "image": "/assets/backgrounds/map-010.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-011",
+    "name": "Дом 4 зимой ночью",
+    "image": "/assets/backgrounds/map-011.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-012",
+    "name": "Дом 4 кровь перед дверью",
+    "image": "/assets/backgrounds/map-012.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-013",
+    "name": "дом 4 открыто",
+    "image": "/assets/backgrounds/map-013.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-014",
+    "name": "дом 4",
+    "image": "/assets/backgrounds/map-014.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-015",
+    "name": "Дом Роджера зимой",
+    "image": "/assets/backgrounds/map-015.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-016",
+    "name": "Дом Роджера",
+    "image": "/assets/backgrounds/map-016.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-017",
+    "name": "дом севера",
+    "image": "/assets/backgrounds/map-017.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-018",
+    "name": "Дорога в баньку",
+    "image": "/assets/backgrounds/map-018.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-019",
+    "name": "Дорога красный",
+    "image": "/assets/backgrounds/map-019.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-020",
+    "name": "Дорога с боеголовкой",
+    "image": "/assets/backgrounds/map-020.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-021",
+    "name": "Дорога",
+    "image": "/assets/backgrounds/map-021.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-022",
+    "name": "Зал тронный кошмара",
+    "image": "/assets/backgrounds/map-022.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-023",
+    "name": "Квартира 4",
+    "image": "/assets/backgrounds/map-023.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-024",
+    "name": "Квартира Роуз",
+    "image": "/assets/backgrounds/map-024.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-025",
+    "name": "комната 1",
+    "image": "/assets/backgrounds/map-025.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-026",
+    "name": "Комната ДаркНета",
+    "image": "/assets/backgrounds/map-026.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-027",
+    "name": "Комната Джаркхннэ",
+    "image": "/assets/backgrounds/map-027.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-028",
+    "name": "Коридор замка кошмаров",
+    "image": "/assets/backgrounds/map-028.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-029",
+    "name": "коридор",
+    "image": "/assets/backgrounds/map-029.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-030",
+    "name": "Космоз грез планета кошмаров",
+    "image": "/assets/backgrounds/map-030.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-031",
+    "name": "Космоз грез планета снов",
+    "image": "/assets/backgrounds/map-031.jpg",
+    "mood": "dream"
+  },
+  {
+    "id": "map-032",
+    "name": "Космос Красиво",
+    "image": "/assets/backgrounds/map-032.jpg",
+    "mood": "dream"
+  },
+  {
+    "id": "map-033",
+    "name": "космос",
+    "image": "/assets/backgrounds/map-033.jpg",
+    "mood": "dream"
+  },
+  {
+    "id": "map-034",
+    "name": "Кошмар фон 0",
+    "image": "/assets/backgrounds/map-034.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-035",
+    "name": "Кошмар фон 1",
+    "image": "/assets/backgrounds/map-035.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-036",
+    "name": "Кошмар фон 2",
+    "image": "/assets/backgrounds/map-036.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-037",
+    "name": "Лаборатория Барана",
+    "image": "/assets/backgrounds/map-037.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-038",
+    "name": "Лаборатория ДаркНета",
+    "image": "/assets/backgrounds/map-038.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-039",
+    "name": "Лаборатория плохих военная",
+    "image": "/assets/backgrounds/map-039.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-040",
+    "name": "Лаборатория плохих",
+    "image": "/assets/backgrounds/map-040.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-041",
+    "name": "Лаборатория с машиной бо обмену тел",
+    "image": "/assets/backgrounds/map-041.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-042",
+    "name": "лобби мавзолея",
+    "image": "/assets/backgrounds/map-042.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-043",
+    "name": "Логово злыдней",
+    "image": "/assets/backgrounds/map-043.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-044",
+    "name": "Логово Темной стороны",
+    "image": "/assets/backgrounds/map-044.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-045",
+    "name": "Море с островом",
+    "image": "/assets/backgrounds/map-045.jpg",
+    "mood": "chill"
+  },
+  {
+    "id": "map-046",
+    "name": "Море",
+    "image": "/assets/backgrounds/map-046.jpg",
+    "mood": "chill"
+  },
+  {
+    "id": "map-047",
+    "name": "Новый точечный рисунок (11) — копия — копия",
+    "image": "/assets/backgrounds/map-047.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-048",
+    "name": "Новый точечный рисунок (11) — копия",
+    "image": "/assets/backgrounds/map-048.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-049",
+    "name": "Новый точечный рисунок (11)",
+    "image": "/assets/backgrounds/map-049.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-050",
+    "name": "Новый точечный рисунок (14) — копия",
+    "image": "/assets/backgrounds/map-050.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-051",
+    "name": "Новый точечный рисунок (14)",
+    "image": "/assets/backgrounds/map-051.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-052",
+    "name": "Новый точечный рисунок (15) — копия",
+    "image": "/assets/backgrounds/map-052.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-053",
+    "name": "Новый точечный рисунок (15)",
+    "image": "/assets/backgrounds/map-053.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-054",
+    "name": "Новый точечный рисунок (15)",
+    "image": "/assets/backgrounds/map-054.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-055",
+    "name": "Новый точечный рисунок (16)",
+    "image": "/assets/backgrounds/map-055.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-056",
+    "name": "Новый точечный рисунок (25) — копия — копия",
+    "image": "/assets/backgrounds/map-056.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-057",
+    "name": "Новый точечный рисунок (46)",
+    "image": "/assets/backgrounds/map-057.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-058",
+    "name": "Новый точечный рисунок (6) — копия",
+    "image": "/assets/backgrounds/map-058.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-059",
+    "name": "Новый точечный рисунок (8) — копия",
+    "image": "/assets/backgrounds/map-059.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-060",
+    "name": "Новый точечный рисунок (8)",
+    "image": "/assets/backgrounds/map-060.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-061",
+    "name": "Новый точечный рисунок (9)",
+    "image": "/assets/backgrounds/map-061.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-062",
+    "name": "Остров Джеффри",
+    "image": "/assets/backgrounds/map-062.jpg",
+    "mood": "chill"
+  },
+  {
+    "id": "map-063",
+    "name": "пиксель поле боя",
+    "image": "/assets/backgrounds/map-063.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-064",
+    "name": "пляж",
+    "image": "/assets/backgrounds/map-064.jpg",
+    "mood": "chill"
+  },
+  {
+    "id": "map-065",
+    "name": "подвал лулу",
+    "image": "/assets/backgrounds/map-065.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-066",
+    "name": "подвал тренеровачный лестница",
+    "image": "/assets/backgrounds/map-066.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-067",
+    "name": "подвал тренеровачный",
+    "image": "/assets/backgrounds/map-067.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-068",
+    "name": "пол меркурия 2",
+    "image": "/assets/backgrounds/map-068.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-069",
+    "name": "пол меркурия",
+    "image": "/assets/backgrounds/map-069.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-070",
+    "name": "Поле",
+    "image": "/assets/backgrounds/map-070.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-071",
+    "name": "пустота",
+    "image": "/assets/backgrounds/map-071.jpg",
+    "mood": "dream"
+  },
+  {
+    "id": "map-072",
+    "name": "Пустыня Захара",
+    "image": "/assets/backgrounds/map-072.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-073",
+    "name": "Симуляция отмененых персов",
+    "image": "/assets/backgrounds/map-073.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-074",
+    "name": "скелетоград",
+    "image": "/assets/backgrounds/map-074.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-075",
+    "name": "Сон фон 2",
+    "image": "/assets/backgrounds/map-075.jpg",
+    "mood": "dream"
+  },
+  {
+    "id": "map-076",
+    "name": "Стена кошмаров заключений",
+    "image": "/assets/backgrounds/map-076.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-077",
+    "name": "столовка",
+    "image": "/assets/backgrounds/map-077.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-078",
+    "name": "сцена внутри под землей",
+    "image": "/assets/backgrounds/map-078.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-079",
+    "name": "сцена под землей",
+    "image": "/assets/backgrounds/map-079.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-080",
+    "name": "сцена там призраки",
+    "image": "/assets/backgrounds/map-080.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-081",
+    "name": "Темные глубины коридор",
+    "image": "/assets/backgrounds/map-081.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-082",
+    "name": "Тюрьма с дырками",
+    "image": "/assets/backgrounds/map-082.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-083",
+    "name": "Тюрьма",
+    "image": "/assets/backgrounds/map-083.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-084",
+    "name": "фон дверь знание Джеффри",
+    "image": "/assets/backgrounds/map-084.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-085",
+    "name": "фон для звезд",
+    "image": "/assets/backgrounds/map-085.jpg",
+    "mood": "dream"
+  },
+  {
+    "id": "map-086",
+    "name": "фон дом телефона",
+    "image": "/assets/backgrounds/map-086.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-087",
+    "name": "Фон Крыша",
+    "image": "/assets/backgrounds/map-087.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-088",
+    "name": "фон от гроба майкла",
+    "image": "/assets/backgrounds/map-088.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-089",
+    "name": "Фон самолета",
+    "image": "/assets/backgrounds/map-089.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-090",
+    "name": "Фон Цитадели",
+    "image": "/assets/backgrounds/map-090.jpg",
+    "mood": "dark"
+  },
+  {
+    "id": "map-091",
+    "name": "Фон ячейка бездны",
+    "image": "/assets/backgrounds/map-091.jpg",
+    "mood": "arcade"
+  },
+  {
+    "id": "map-092",
+    "name": "Церковь",
+    "image": "/assets/backgrounds/map-092.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-093",
+    "name": "школа3",
+    "image": "/assets/backgrounds/map-093.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-094",
+    "name": "школа4",
+    "image": "/assets/backgrounds/map-094.jpg",
+    "mood": "town"
+  },
+  {
+    "id": "map-095",
+    "name": "Электростанция внутри",
+    "image": "/assets/backgrounds/map-095.jpg",
+    "mood": "arcade"
+  }
+]
